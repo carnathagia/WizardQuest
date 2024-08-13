@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcagqh3jxw3r8"]
+
+[ext_resource type="Script" path="res://HealthPotion.gd" id="1_6jw6a"]
+[ext_resource type="PackedScene" uid="uid://c7ut5rxry2m6n" path="res://KayKit_Adventurers_1.0_EXTRA/Assets/gltf/potion_huge_red.gltf" id="2_hih2y"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s7xsh"]
+rough = true
+bounce = 0.25
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vetg"]
+radius = 0.219001
+height = 0.63403
+
+[node name="HealthPotion" type="RigidBody3D"]
+collision_layer = 5
+physics_material_override = SubResource("PhysicsMaterial_s7xsh")
+script = ExtResource("1_6jw6a")
+
+[node name="potion_huge_red2" parent="." instance=ExtResource("2_hih2y")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0797999, 0)
+shape = SubResource("CapsuleShape3D_5vetg")

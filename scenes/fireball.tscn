@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c64v8g7lx53ui"]
+
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_hwdpq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7dy2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_42bfb"]
+material = SubResource("StandardMaterial3D_f7dy2")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ajvf"]
+radius = 0.25
+
+[node name="Fireball" type="Area3D"]
+script = ExtResource("1_hwdpq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transparency = 0.2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_42bfb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_5ajvf")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(128.498, 0.498039, 0, 1)
+light_energy = 10.0
+light_indirect_energy = 5.0
+omni_shadow_mode = 0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

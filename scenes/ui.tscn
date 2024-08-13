@@ -1,0 +1,232 @@
+[gd_scene load_steps=12 format=3 uid="uid://ei256bk56er1"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_eci1o"]
+[ext_resource type="Texture2D" uid="uid://30tprrw16smm" path="res://assets/Crosshair.png" id="2_4mrh8"]
+[ext_resource type="Script" path="res://scripts/HealthNumbers.gd" id="3_ebs4e"]
+[ext_resource type="Script" path="res://scripts/InteractText.gd" id="4_48cyv"]
+[ext_resource type="Script" path="res://scripts/AimText.gd" id="4_q2tt6"]
+[ext_resource type="Script" path="res://scripts/PickupText.gd" id="5_jgtn1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4lay"]
+bg_color = Color(0, 0, 0, 0.490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1glb"]
+bg_color = Color(1, 0, 0, 0.490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fejt"]
+bg_color = Color(0, 0, 0, 0.490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pppk"]
+bg_color = Color(0, 0, 1, 0.490196)
+
+[sub_resource type="Theme" id="Theme_qwcjg"]
+default_font_size = 30
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eci1o")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -719.0
+offset_top = -449.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_4mrh8")
+stretch_mode = 3
+
+[node name="Tutorial" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 497.0
+offset_top = 328.0
+offset_right = 974.0
+offset_bottom = 767.0
+theme_override_font_sizes/font_size = 25
+text = "W, A, S, D to move
+Space to jump
+Shift to run
+Right-click and hold to target an enemy
+With an active target, Left-click to Cast
+Q to pick up items
+Potions fall from the sky
+Watch out for enemies
+Find the Secret Chest"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="LeftPanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LeftPanel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HealthBar" type="ProgressBar" parent="HBoxContainer/LeftPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_r4lay")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v1glb")
+value = 25.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthNumbers" type="Label" parent="HBoxContainer/LeftPanel/VBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -13.5
+offset_right = 82.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ebs4e")
+
+[node name="HealthText" type="Label" parent="HBoxContainer/LeftPanel/VBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -22.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Health"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/LeftPanel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 20)
+layout_mode = 2
+
+[node name="MagicBar" type="ProgressBar" parent="HBoxContainer/LeftPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_5fejt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0pppk")
+value = 25.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MagicNumbers" type="Label" parent="HBoxContainer/LeftPanel/VBoxContainer/MagicBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -13.5
+offset_right = 82.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ebs4e")
+
+[node name="MagicText" type="Label" parent="HBoxContainer/LeftPanel/VBoxContainer/MagicBar"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -22.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Magic
+"
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/LeftPanel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 20)
+layout_mode = 2
+
+[node name="MiddlePanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WinGame" type="Label" parent="HBoxContainer/MiddlePanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "You found the hidden chest!
+You Win!
+Thanks for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightPanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_qwcjg")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AimText" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("4_q2tt6")
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="PickupText" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("5_jgtn1")
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="InteractText" type="Label" parent="HBoxContainer/RightPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+script = ExtResource("4_48cyv")
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer/RightPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2

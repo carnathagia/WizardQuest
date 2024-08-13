@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://b854wnfd8tbws"]
+
+[ext_resource type="PackedScene" uid="uid://ei256bk56er1" path="res://scenes/ui.tscn" id="1_l0ls6"]
+[ext_resource type="Script" path="res://scripts/Level.gd" id="2_63jav"]
+[ext_resource type="PackedScene" uid="uid://cvvv2srf2s1as" path="res://scenes/player.tscn" id="3_0vuoa"]
+[ext_resource type="PackedScene" uid="uid://c64v8g7lx53ui" path="res://scenes/fireball.tscn" id="4_1jgiv"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="5_uov8t"]
+[ext_resource type="Resource" path="res://terrain/data.hterrain" id="6_ia3mw"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="7_lhea0"]
+[ext_resource type="Texture2D" uid="uid://cvo60taxn1vc" path="res://terrain_textures/slot0_albedo_bump.png" id="8_3du4p"]
+[ext_resource type="Texture2D" uid="uid://cib34g2qtxrs4" path="res://terrain_textures/slot0_normal_roughness.png" id="9_1epq4"]
+[ext_resource type="Script" path="res://scenes/NatureSpawner.gd" id="10_gp4nx"]
+[ext_resource type="AudioStream" uid="uid://67e85h0ie0qs" path="res://audio/sea serpent-002.ogg" id="12_ics5s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d8pic"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_5uj17"]
+sky_material = SubResource("ProceduralSkyMaterial_d8pic")
+
+[sub_resource type="Environment" id="Environment_aomuk"]
+background_mode = 2
+sky = SubResource("Sky_5uj17")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.517647, 0.552941, 0.470588, 1)
+fog_sun_scatter = 0.5
+fog_density = 0.005
+
+[sub_resource type="Resource" id="Resource_3gnnu"]
+script = ExtResource("7_lhea0")
+mode = 0
+textures = [[ExtResource("8_3du4p")], [ExtResource("9_1epq4")]]
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aomuk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="UI" parent="." instance=ExtResource("1_l0ls6")]
+
+[node name="Level" type="Node3D" parent="."]
+script = ExtResource("2_63jav")
+
+[node name="Player" parent="Level" instance=ExtResource("3_0vuoa")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 250, 13.7017, 250)
+floor_max_angle = 1.0472
+fireball_scene = ExtResource("4_1jgiv")
+
+[node name="HTerrain" type="Node3D" parent="Level"]
+unique_name_in_owner = true
+script = ExtResource("5_uov8t")
+ambient_wind = 0.219
+_terrain_data = ExtResource("6_ia3mw")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_3gnnu")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = false
+shader_params/u_tile_reduction = null
+
+[node name="NatureSpawner" type="Node" parent="Level"]
+script = ExtResource("10_gp4nx")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Level"]
+stream = ExtResource("12_ics5s")
+volume_db = -20.0
+
+[connection signal="new_aimable" from="Level/Player" to="UI" method="_on_player_new_aimable"]
+[connection signal="new_pickupable" from="Level/Player" to="UI" method="_on_player_new_pickupable"]
+[connection signal="no_aimable" from="Level/Player" to="UI" method="_on_player_no_aimable"]
+[connection signal="no_pickupable" from="Level/Player" to="UI" method="_on_player_no_pickupable"]
+[connection signal="on_health_changed" from="Level/Player" to="UI" method="_on_player_health_changed"]
+[connection signal="on_health_changed" from="Level/Player" to="UI" method="_on_player_on_health_changed"]
+[connection signal="on_magic_changed" from="Level/Player" to="UI" method="_on_player_magic_changed"]
+[connection signal="tutorial_over" from="Level/Player" to="UI" method="_on_player_tutorial_over"]
+[connection signal="tutorial_over" from="Level/Player" to="Level" method="_on_player_tutorial_over"]
+[connection signal="win_game" from="Level/Player" to="UI" method="_on_player_win_game"]
+[connection signal="ready" from="Level/NatureSpawner" to="Level" method="_on_nature_spawner_ready"]

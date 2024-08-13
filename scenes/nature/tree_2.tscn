@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://brlk1s2uyqxqr"]
+
+[ext_resource type="PackedScene" uid="uid://oayw5bgtikw8" path="res://assets/Nature/CommonTree_2.gltf" id="1_bq7fh"]
+
+[node name="Tree2" type="Node3D"]
+
+[node name="CommonTree_2" parent="." instance=ExtResource("1_bq7fh")]

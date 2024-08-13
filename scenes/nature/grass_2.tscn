@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dop0mglf31jja"]
+
+[ext_resource type="PackedScene" uid="uid://b6lbqv3v1lwi5" path="res://assets/Nature/Grass_Common_Tall.gltf" id="1_3855g"]
+
+[node name="Grass2" type="Node3D"]
+
+[node name="Grass_Common_Tall2" parent="." instance=ExtResource("1_3855g")]

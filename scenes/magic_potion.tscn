@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://4k4uu42mofis"]
+
+[ext_resource type="PackedScene" uid="uid://c4m87dr61vrqq" path="res://KayKit_Adventurers_1.0_EXTRA/Assets/gltf/potion_huge_blue.gltf" id="1_8vpd1"]
+[ext_resource type="Script" path="res://scenes/magic_potion.gd" id="1_jsdx2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3pqsm"]
+rough = true
+bounce = 0.25
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wsiog"]
+radius = 0.238078
+height = 0.682083
+
+[node name="MagicPotion" type="RigidBody3D"]
+collision_layer = 5
+physics_material_override = SubResource("PhysicsMaterial_3pqsm")
+script = ExtResource("1_jsdx2")
+
+[node name="potion_huge_blue2" parent="." instance=ExtResource("1_8vpd1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0956784, 0)
+shape = SubResource("CapsuleShape3D_wsiog")
